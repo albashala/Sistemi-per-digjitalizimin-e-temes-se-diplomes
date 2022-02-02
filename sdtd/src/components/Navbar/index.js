@@ -13,13 +13,13 @@ import {
     NavBtnLink
 } from './NavbarElements';
 
-const Navbar = () => {
+const Navbar = ({ toggle }) => {
   return (
     <>
         <Nav>
             <NavbarContainer>
                 <NavLogo to='/'> <img src={require('./ubtlogo.png')} style={{width:"10%"}}/></NavLogo>
-                <MobileIcon>
+                <MobileIcon onClick={toggle}>
                     <FaBars/>
                 </MobileIcon>
                 <NavMenu>
