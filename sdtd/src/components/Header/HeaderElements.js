@@ -34,9 +34,8 @@ export const VideoBg = styled.video`
 export const HeaderContent = styled.div`
     z-index: 3;
     max-width:2000px; 
-    height:100%;
+    height:350px;
     padding : 8px 24px;
-    top:0;
     background:rgba(255,255,255, 0.3);
     display: flex;
     position: absolute;
@@ -84,7 +83,7 @@ export const HeaderP = styled.p`
     }
     `;
 export const HeaderBtnWrapper = styled.div`
-    margin-top: 32px;
+    margin-top: 22px;
     display: flex;
     flex-direction: column;
     align-items: center;
