@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP.Migrations
 {
     [DbContext(typeof(SDTDContext))]
-    partial class SDTDContextModelSnapshot : ModelSnapshot
+    [Migration("20220202192755_ThirdCreate")]
+    partial class ThirdCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,11 +176,11 @@ namespace SDTD_Web_APP.Migrations
             modelBuilder.Entity("SDTD_Web_APP.Models.Consultation", b =>
                 {
                     b.HasOne("SDTD_Web_APP.Models.Professor", "Professor")
-                        .WithMany("Consultations")
+                        .WithMany("Konsultimet")
                         .HasForeignKey("ProfessorId");
 
                     b.HasOne("SDTD_Web_APP.Models.Student", "Student")
-                        .WithMany("Consultations")
+                        .WithMany("Konsultimet")
                         .HasForeignKey("StudentId");
 
                     b.Navigation("Professor");
@@ -189,7 +191,7 @@ namespace SDTD_Web_APP.Migrations
             modelBuilder.Entity("SDTD_Web_APP.Models.Student", b =>
                 {
                     b.HasOne("SDTD_Web_APP.Models.Professor", "Professor")
-                        .WithMany("Students")
+                        .WithMany("Mentoron")
                         .HasForeignKey("ProfessorId");
 
                     b.Navigation("Professor");
@@ -202,7 +204,7 @@ namespace SDTD_Web_APP.Migrations
                         .HasForeignKey("ProfessorId");
 
                     b.HasOne("SDTD_Web_APP.Models.Student", "Student")
-                        .WithOne("Thesis")
+                        .WithOne("Tema")
                         .HasForeignKey("SDTD_Web_APP.Models.Thesis", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -214,16 +216,16 @@ namespace SDTD_Web_APP.Migrations
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Professor", b =>
                 {
-                    b.Navigation("Consultations");
+                    b.Navigation("Konsultimet");
 
-                    b.Navigation("Students");
+                    b.Navigation("Mentoron");
                 });
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Student", b =>
                 {
-                    b.Navigation("Consultations");
+                    b.Navigation("Konsultimet");
 
-                    b.Navigation("Thesis");
+                    b.Navigation("Tema");
                 });
 #pragma warning restore 612, 618
         }

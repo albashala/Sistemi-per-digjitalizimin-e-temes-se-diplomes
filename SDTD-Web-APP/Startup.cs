@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP
 {
@@ -28,6 +29,8 @@ namespace SDTD_Web_APP
             {
                 configuration.RootPath = "ClientApp/build";
             });
+
+            services.AddDbContext<SDTDContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,9 +55,7 @@ namespace SDTD_Web_APP
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>

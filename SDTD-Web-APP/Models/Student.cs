@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SDTD_Web_APP.Models
 {
@@ -12,8 +13,8 @@ namespace SDTD_Web_APP.Models
         public string Departamenti { get; set; }
         public DateTime DOB { get; set; }
         public bool IsActive { get; set; }
-        public Thesis Tema { get; set; }
-        public Consultation[] Konsultimet { get; set; }
+        public Thesis Thesis { get; set; }
+        public ICollection<Consultation> Consultations { get; set; }
         public Professor Professor { get; set; }
     }
 }

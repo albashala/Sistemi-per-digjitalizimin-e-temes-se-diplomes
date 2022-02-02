@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SDTD_Web_APP.Models
 {
@@ -12,8 +13,8 @@ namespace SDTD_Web_APP.Models
         public DateTime DOB { get; set; }
         public string Titulli { get; set; }
         public bool IsAvailable { get; set; }
-        public Consultation[] Konsultimet { get; set; }
-        public Student[] Mentoron { get; set; }
+        public ICollection<Consultation> Consultations { get; set; }
+        public ICollection<Student> Students { get; set; }
 
     }
 }
