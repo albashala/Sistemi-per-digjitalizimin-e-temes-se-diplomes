@@ -1,18 +1,36 @@
 import React from 'react';
-import {SigninContainer,SigninBtn,SigninBtnLink } from "./SigninElements";
+import { 
+  Container,
+  FormInput, 
+  FormLabel, 
+  FormWrap, 
+  FormContent,
+  Form,
+  FormH1,
+  FormButton,
+  Text,
+  Icon } from "./SigninElements";
 
 const Signin = () => {
   return (
-      <div style={{
-
-      }}>
-        <SigninContainer>
-        
-            <SigninBtn>
-                <SigninBtnLink to="/profile">Sign In</SigninBtnLink>
-            </SigninBtn>
-        </SigninContainer>
-      </div>
+      <>
+        <Container>
+          <FormWrap>
+            <Icon to="/"><img src={require('../Navbar/ubtlogo.png')} style={{width:"4%"}}/></Icon>
+            <FormContent>
+              <Form action="#">
+                <FormH1>Sign in to your account</FormH1>
+                <FormLabel htmlFor='for'>Email</FormLabel>
+                <FormInput type="email" required/>
+                <FormLabel htmlFor='for'>Password</FormLabel>
+                <FormInput type="password" required/>
+                <FormButton type='submit'>Sign in</FormButton>
+                <Text>Forgot password</Text>
+              </Form>
+            </FormContent>
+          </FormWrap>
+        </Container>
+      </>
   );
 };
 
