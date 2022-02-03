@@ -10,10 +10,8 @@ import {
   FormButton,
   Text,
   Icon } from "./SigninElements";
-  import { AuthService, useAuth } from "gatsby-theme-auth0";
 
 const Signin = () => {
-  const { isLoggedIn, profile } = useAuth();
   return (
       <>
         <Container>
@@ -26,7 +24,7 @@ const Signin = () => {
                 <FormInput type="email" required/>
                 <FormLabel htmlFor='for'>Password</FormLabel>
                 <FormInput type="password" required/>
-                <FormButton type='submit' onClick={AuthService.login}>Sign in</FormButton>
+                <FormButton type='submit'>Sign in</FormButton>
                 <Text>Forgot password</Text>
               </Form>
             </FormContent>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {FaBars} from 'react-icons/fa';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import {
     Nav,
@@ -14,6 +15,14 @@ import {
 } from './NavbarElements';
 
 const Navbar = ({ toggle }) => {
+    const {
+        isLoading,
+        isAuthenticated,
+        error,
+        user,
+        loginWithRedirect,
+        logout,
+      } = useAuth0();
   return (
     <>
         <Nav>
@@ -33,6 +42,7 @@ const Navbar = ({ toggle }) => {
                 <NavBtn>
                     <NavBtnLink to="/signin">Sign In</NavBtnLink>
                 </NavBtn>
+                {/* <NavBtn onClick={loginWithRedirect}>Sign in</NavBtn> */}
             </NavbarContainer>
         </Nav>
     </>
