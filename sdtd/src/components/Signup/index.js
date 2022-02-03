@@ -9,9 +9,9 @@ import {
   FormH1,
   FormButton,
   Text,
-  Icon } from "./SigninElements";
+  Icon } from "./SignupElements";
 
-const Signin = () => {
+const SignUp = () => {
   return (
       <>
         <Container>
@@ -19,7 +19,11 @@ const Signin = () => {
             <Icon to="/"><img src={require('../Navbar/ubtlogo.png')} style={{width:"4%"}}/></Icon>
             <FormContent>
               <Form action="#">
-                <FormH1>Sign in to your account</FormH1>
+                <FormH1>Create Account</FormH1>
+                <FormLabel htmlFor='for'>Name</FormLabel>
+                <FormInput type="name" required/>
+                <FormLabel htmlFor='for'>Surname</FormLabel>
+                <FormInput type="surname" required/>
                 <FormLabel htmlFor='for'>Email</FormLabel>
                 <FormInput type="email" required/>
                 <FormLabel htmlFor='for'>Password</FormLabel>
@@ -34,4 +38,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignUp;
