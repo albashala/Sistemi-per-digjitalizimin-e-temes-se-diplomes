@@ -10,6 +10,5 @@ namespace SDTD_Web_APP.Models
         public DateTime DataEAplikimit { get; set; }
         public int StudentId { get; set; }
         public Student Student { get; set; }
-        public Professor Professor { get; set; }
     }
 }

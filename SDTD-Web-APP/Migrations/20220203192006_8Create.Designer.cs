@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP.Migrations
 {
     [DbContext(typeof(SDTDContext))]
-    partial class SDTDContextModelSnapshot : ModelSnapshot
+    [Migration("20220203192006_8Create")]
+    partial class _8Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,13 +52,13 @@ namespace SDTD_Web_APP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProfessorId")
+                    b.Property<int?>("ProfessorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SllotiKohor")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -152,6 +154,9 @@ namespace SDTD_Web_APP.Migrations
                     b.Property<string>("Emri")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProfessorId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("StatusiIAprovimit")
                         .HasColumnType("bit");
 
@@ -159,6 +164,8 @@ namespace SDTD_Web_APP.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfessorId");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
@@ -170,15 +177,11 @@ namespace SDTD_Web_APP.Migrations
                 {
                     b.HasOne("SDTD_Web_APP.Models.Professor", "Professor")
                         .WithMany("Consultations")
-                        .HasForeignKey("ProfessorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfessorId");
 
                     b.HasOne("SDTD_Web_APP.Models.Student", "Student")
                         .WithMany("Consultations")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Professor");
 
@@ -196,11 +199,17 @@ namespace SDTD_Web_APP.Migrations
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Thesis", b =>
                 {
+                    b.HasOne("SDTD_Web_APP.Models.Professor", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId");
+
                     b.HasOne("SDTD_Web_APP.Models.Student", "Student")
                         .WithOne("Thesis")
                         .HasForeignKey("SDTD_Web_APP.Models.Thesis", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Professor");
 
                     b.Navigation("Student");
                 });

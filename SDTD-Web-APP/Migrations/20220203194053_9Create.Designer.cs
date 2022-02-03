@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP.Migrations
 {
     [DbContext(typeof(SDTDContext))]
-    partial class SDTDContextModelSnapshot : ModelSnapshot
+    [Migration("20220203194053_9Create")]
+    partial class _9Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,6 +154,9 @@ namespace SDTD_Web_APP.Migrations
                     b.Property<string>("Emri")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ProfessorId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("StatusiIAprovimit")
                         .HasColumnType("bit");
 
@@ -159,6 +164,8 @@ namespace SDTD_Web_APP.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProfessorId");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
@@ -196,11 +203,17 @@ namespace SDTD_Web_APP.Migrations
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Thesis", b =>
                 {
+                    b.HasOne("SDTD_Web_APP.Models.Professor", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorId");
+
                     b.HasOne("SDTD_Web_APP.Models.Student", "Student")
                         .WithOne("Thesis")
                         .HasForeignKey("SDTD_Web_APP.Models.Thesis", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Professor");
 
                     b.Navigation("Student");
                 });

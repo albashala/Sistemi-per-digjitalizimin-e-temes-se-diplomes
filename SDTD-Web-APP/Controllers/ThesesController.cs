@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SDTD_Web_APP.Models;
 
@@ -11,60 +8,60 @@ namespace SDTD_Web_APP.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : Controller
+    public class ThesesController : Controller
     {
         private readonly SDTDContext _context;
 
-        public StudentsController(SDTDContext context)
+        public ThesesController(SDTDContext context)
         {
             _context = context;
         }
 
-        // GET: All Students
+        // GET: All Theses
         [HttpGet]
-        public async Task<IActionResult> GetAllStudents()
+        public async Task<IActionResult> GetAllTheses()
         {
-            return Ok(await _context.Students.ToListAsync());
+            return Ok(await _context.Theses.ToListAsync());
         }
 
-        // GET: One Student
+        // GET: One Thesis
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStudent(int? id)
+        public async Task<IActionResult> GetThesis(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var thesis = await _context.Theses.FindAsync(id);
+            if (thesis == null)
             {
                 return NotFound();
             }
-            return Ok(student);
+            return Ok(thesis);
         }
 
-        // POST: Add a student
+        // POST: Add a thesis
         [HttpPost]
-        public async Task<IActionResult> AddStudent([FromBody] Student student)
+        public async Task<IActionResult> AddThesis([FromBody] Thesis thesis)
         {
             if (ModelState.IsValid)
             {
-                var exists = _context.Students.Any(x => x.Email == student.Email);
-                if (exists) return BadRequest("Student already exists");
-                _context.Add(student);
+                var exists = _context.Theses.Any(x => x.Emri == thesis.Emri);
+                if (exists) return BadRequest("Thesis already exists");
+                _context.Add(thesis);
                 await _context.SaveChangesAsync();
-                return Ok();
+                return Ok("Added successfully");
             }
             return BadRequest("Invalid data");
         }
 
 
-        // PUT: Edit a student
+        // PUT: Edit a thesis
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditStudent(int? id, [FromBody] Student student)
+        public async Task<IActionResult> EditThesis(int? id, [FromBody] Thesis thesis)
         {
-            if (id != student.Id)
+            if (id != thesis.Id)
             {
                 return NotFound();
             }
@@ -73,7 +70,7 @@ namespace SDTD_Web_APP.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(thesis);
                     await _context.SaveChangesAsync();
                     return Ok("Updated successfully");
                 }
@@ -87,24 +84,24 @@ namespace SDTD_Web_APP.Controllers
         }
 
 
-        // Delete: Delete a student
+        // Delete: Delete a thesis
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int? id)
+        public async Task<IActionResult> DeleteThesis(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var student = await _context.Students
+            var thesis = await _context.Theses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
+            if (thesis == null)
             {
                 return NotFound();
             }
             try
             {
-                _context.Students.Remove(student);
+                _context.Theses.Remove(thesis);
                 await _context.SaveChangesAsync();
                 return Ok("Deleted successfully");
             }

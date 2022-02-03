@@ -15,6 +15,7 @@ namespace SDTD_Web_APP.Models
         public bool IsActive { get; set; }
         public Thesis Thesis { get; set; }
         public ICollection<Consultation> Consultations { get; set; }
+        public int? ProfessorId { get; set; }
         public Professor Professor { get; set; }
     }
 }
