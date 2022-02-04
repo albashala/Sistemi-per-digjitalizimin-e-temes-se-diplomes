@@ -87,10 +87,12 @@ export const FormInput = styled.input`
   border-radius: 4px;
 `;
 
-export const FormButton = styled.button`
+export const FormButton = styled(Link)`
   background: #244082;
   padding: 16px 0;
   border:none;
+  text-decoration: none;
+  text-align: center;
   border-radius: 4px;
   color: #fff;
   font-size: 20px;

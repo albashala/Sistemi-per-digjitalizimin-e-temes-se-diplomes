@@ -39,7 +39,6 @@ const Header = () => {
                     </Button>
                 </HeaderBtnWrapper>
         </HeaderContent>
-
     </HeaderContainer> 
   );
 };

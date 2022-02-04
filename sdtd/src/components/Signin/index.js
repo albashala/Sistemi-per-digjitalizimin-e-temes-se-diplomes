@@ -7,6 +7,7 @@ import {
   FormContent,
   Form,
   FormH1,
+  FormLink,
   FormButton,
   Text,
   Icon } from "./SigninElements";
@@ -24,7 +25,7 @@ const Signin = () => {
                 <FormInput type="email" required/>
                 <FormLabel htmlFor='for'>Password</FormLabel>
                 <FormInput type="password" required/>
-                <FormButton type='submit'>Sign in</FormButton>
+                <FormButton to='/studentProfile' type='submit'> Sign in</FormButton>
                 <Text>Forgot password</Text>
               </Form>
             </FormContent>
