@@ -9,7 +9,7 @@ export const Container = styled.div`
    right:0;
    top: 0;
    z-index: 0;
-   overflow: hidden;
+   overflow: auto;
    background:  #e4e4e4;
 `;
 
@@ -87,6 +87,14 @@ export const FormInput = styled.input`
   border: none;
   border-radius: 4px;
 `;
+
+export const FormDropdown = styled.select`
+  padding: 16px 16px;
+  margin-bottom: 32px;
+  border: none;
+  border-radius: 4px;
+`;
+
 
 export const FormButton = styled.button`
   background: #244082;
