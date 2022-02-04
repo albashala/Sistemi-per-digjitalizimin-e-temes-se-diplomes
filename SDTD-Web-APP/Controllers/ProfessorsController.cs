@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP.Controllers
 {
     [Route("api/[controller]")]
+    [ApiController]
     public class ProfessorsController : Controller
     {
         private readonly SDTDContext _context;
@@ -16,152 +17,99 @@ namespace SDTD_Web_APP.Controllers
             _context = context;
         }
 
-        // GET: Professors
-        public async Task<IActionResult> Index()
+        // GET: All Professors
+        [HttpGet]
+        public async Task<IActionResult> GetAllProfessors()
         {
             return Ok(await _context.Professors.ToListAsync());
         }
 
-        //// POST
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([FromBody]Professor professor)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(professor);
-        //        await _context.SaveChangesAsync();
-        //        return Ok();
-        //    }
+        // GET: One Professor
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfessor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //}
+            var professor = await _context.Professors.FindAsync(id);
+            if (professor == null)
+            {
+                return NotFound();
+            }
 
-        // GET: Professors/Details/5
-            //        public async Task<IActionResult> Details(int? id)
-            //        {
-            //            if (id == null)
-            //            {
-            //                return NotFound();
-            //            }
+            return Ok(professor);
+        }
 
-            //            var professor = await _context.Professors
-            //                .FirstOrDefaultAsync(m => m.Id == id);
-            //            if (professor == null)
-            //            {
-            //                return NotFound();
-            //            }
+        // POST: Add a professor
+        [HttpPost]
+        public async Task<IActionResult> AddProfessor([FromBody] Professor professor)
+        {
+            if (ModelState.IsValid)
+            {
+                var exists = _context.Professors.Any(x => x.Email == professor.Email);
+                if (exists) return BadRequest("Professor already exists");
+                _context.Add(professor);
+                await _context.SaveChangesAsync();
+                return Ok("Added successfully");
+            }
+            return BadRequest("Invalid data");
+        }
 
-            //            return View(professor);
-            //        }
 
-            //        // GET: Professors/Create
-            //        public IActionResult Create()
-            //        {
-            //            return View();
-            //        }
+        // PUT: Edit a professor
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditProfessor(int? id, [FromBody] Professor professor)
+        {
+            if (id != professor.Id)
+            {
+                return NotFound();
+            }
 
-            //        // POST: Professors/Create
-            //        // To protect from overposting attacks, enable the specific properties you want to bind to.
-            //        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public async Task<IActionResult> Create([Bind("Id,Emri,Mbiemri,Email,Password,DOB,Titulli,IsAvailable")] Professor professor)
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        _context.Add(professor);
-            //        await _context.SaveChangesAsync();
-            //        return Ok();
-            //    }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(professor);
+                    await _context.SaveChangesAsync();
+                    return Ok("Updated successfully");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+            }
 
-            //    return BadRequest("Invalid data");
+            return BadRequest();
+        }
 
-            //}
 
-            //        // GET: Professors/Edit/5
-            //        public async Task<IActionResult> Edit(int? id)
-            //        {
-            //            if (id == null)
-            //            {
-            //                return NotFound();
-            //            }
+        // Delete: Delete a professor
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProfessor(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-            //            var professor = await _context.Professors.FindAsync(id);
-            //            if (professor == null)
-            //            {
-            //                return NotFound();
-            //            }
-            //            return View(professor);
-            //        }
-
-            //        // POST: Professors/Edit/5
-            //        // To protect from overposting attacks, enable the specific properties you want to bind to.
-            //        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-            //        [HttpPost]
-            //        [ValidateAntiForgeryToken]
-            //        public async Task<IActionResult> Edit(int id, [Bind("Id,Emri,Mbiemri,Email,Password,DOB,Titulli,IsAvailable")] Professor professor)
-            //        {
-            //            if (id != professor.Id)
-            //            {
-            //                return NotFound();
-            //            }
-
-            //            if (ModelState.IsValid)
-            //            {
-            //                try
-            //                {
-            //                    _context.Update(professor);
-            //                    await _context.SaveChangesAsync();
-            //                }
-            //                catch (DbUpdateConcurrencyException)
-            //                {
-            //                    if (!ProfessorExists(professor.Id))
-            //                    {
-            //                        return NotFound();
-            //                    }
-            //                    else
-            //                    {
-            //                        throw;
-            //                    }
-            //                }
-            //                return RedirectToAction(nameof(Index));
-            //            }
-            //            return View(professor);
-            //        }
-
-            //        // GET: Professors/Delete/5
-            //        public async Task<IActionResult> Delete(int? id)
-            //        {
-            //            if (id == null)
-            //            {
-            //                return NotFound();
-            //            }
-
-            //            var professor = await _context.Professors
-            //                .FirstOrDefaultAsync(m => m.Id == id);
-            //            if (professor == null)
-            //            {
-            //                return NotFound();
-            //            }
-
-            //            return View(professor);
-            //        }
-
-            //        // POST: Professors/Delete/5
-            //        [HttpPost, ActionName("Delete")]
-            //        [ValidateAntiForgeryToken]
-            //        public async Task<IActionResult> DeleteConfirmed(int id)
-            //        {
-            //            var professor = await _context.Professors.FindAsync(id);
-            //            _context.Professors.Remove(professor);
-            //            await _context.SaveChangesAsync();
-            //            return RedirectToAction(nameof(Index));
-            //        }
-
-            //        private bool ProfessorExists(int id)
-            //        {
-            //            return _context.Professors.Any(e => e.Id == id);
-            //        }
-            //    }
+            var professor = await _context.Professors
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (professor == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+                _context.Professors.Remove(professor);
+                await _context.SaveChangesAsync();
+                return Ok("Deleted successfully");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest("Could not complete");
+            }
         }
     }
+}

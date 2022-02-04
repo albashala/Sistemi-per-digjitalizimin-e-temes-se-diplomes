@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SDTD_Web_APP.Models;
 
 namespace SDTD_Web_APP.Migrations
 {
     [DbContext(typeof(SDTDContext))]
-    partial class SDTDContextModelSnapshot : ModelSnapshot
+    [Migration("20220203195113_11Create")]
+    partial class _11Create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,13 +198,11 @@ namespace SDTD_Web_APP.Migrations
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Thesis", b =>
                 {
-                    b.HasOne("SDTD_Web_APP.Models.Student", "Student")
+                    b.HasOne("SDTD_Web_APP.Models.Student", null)
                         .WithOne("Thesis")
                         .HasForeignKey("SDTD_Web_APP.Models.Thesis", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SDTD_Web_APP.Models.Professor", b =>
